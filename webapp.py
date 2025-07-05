@@ -15,18 +15,18 @@ if 'entities' not in st.session_state:
 if 'simulation_ran' not in st.session_state:
     st.session_state['simulation_ran'] = False
 
-st.title("📞 Voicebot Simulation UI + DSPy Pipeline")
+st.title("Voicebot Simulation UI + DSPy Pipeline")
 
 # Section 1: Main Prompt Upload or Text
-st.header("1️⃣ Main Prompt")
-main_prompt_input = st.text_area("✍️ Write Main Prompt or Upload Below", height=200)
-main_prompt_file = st.file_uploader("📤 Upload Main Prompt File", type=["txt"])
+st.header(" Main Prompt")
+main_prompt_input = st.text_area(" Write Main Prompt or Upload Below", height=200)
+main_prompt_file = st.file_uploader("Upload Main Prompt File", type=["txt"])
 
 if main_prompt_file:
     main_prompt_input = main_prompt_file.read().decode("utf-8")
 
 # Section 2: Scenarios
-st.header("2️⃣ Scenarios")
+st.header("Scenarios")
 new_scenario = st.text_input("➕ Add Scenario")
 if st.button("Add Scenario"):
     if new_scenario:
@@ -38,7 +38,7 @@ if st.session_state['scenarios']:
         st.write(f"{idx + 1}. {scenario}")
 
 # Section 3: Entities
-st.header("3️⃣ Entities")
+st.header("Entities")
 col1, col2, col3 = st.columns(3)
 with col1:
     entity_name = st.text_input("Entity Name")
@@ -61,7 +61,7 @@ if st.session_state['entities']:
     st.dataframe(entity_df)
 
 # Save Input & Trigger Simulation
-if st.button("🚀 Submit and Run Simulation"):
+if st.button("Submit and Run Simulation"):
     # Save input JSON (optional for audit)
     input_json = {
         "main_prompt": main_prompt_input,
@@ -73,7 +73,7 @@ if st.button("🚀 Submit and Run Simulation"):
 
     st.write("Running DSPy Simulation... Please wait ⏳")
 
-    # ✅ Run the enhanced simulation with dynamic entities
+    
     try:
         csv_path, json_path = run_enhanced_simulation(
             main_prompt=main_prompt_input,
@@ -84,7 +84,7 @@ if st.button("🚀 Submit and Run Simulation"):
         st.session_state['simulation_ran'] = True
         st.session_state['csv_output'] = csv_path
         st.session_state['json_output'] = json_path
-        st.success("✅ Simulation completed!")
+        st.success("Simulation completed!")
 
     except Exception as e:
         st.error(f"Simulation failed: {e}")
